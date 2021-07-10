@@ -1,5 +1,12 @@
 package StudentInformationSystem;
 
+//Course sınıfı  derse ait sözlü notu kısmını girin ve ortalamaya etkisini her ders için ayrı ayrı belirtin.
+// Sözlü notlarınıda ortalamaya etkileme yüzdesi ile dahil edin.
+//Örnek : Fizik dersinine ait sözlü notunun ortalamaya etkisi %20 ise sınav notunun etkisi %80'dir.
+//Öğrenci sözlüden 90, sınavdan 60 almış ise, o dersin genel ortalamaya etkisi şu şekilde hesaplanır :
+//Fizik Ortalaması : (90 * 0.20) + (60* 0.80);
+
+
 public class Main {
     public static void main(String[] args) {
 
@@ -10,9 +17,9 @@ public class Main {
         Course turkish = new Course("Turkish", "453", "TRS");
         Course biology = new Course("Biology", "325", "BLY");
 
-        Teacher teacher1 = new Teacher("Lale Basar", "5648975642", "HTY");
-        Teacher teacher2 = new Teacher("Eda Yilmaz", "5879654321", "CMY");
-        Teacher teacher3 = new Teacher("Ece Guler", "5548975612", "PYC");
+        Teacher teacher1 = new Teacher("Lale Basar", "5648975642", "MTH");
+        Teacher teacher2 = new Teacher("Eda Yilmaz", "5879654321", "PYC");
+        Teacher teacher3 = new Teacher("Ece Guler", "5548975612", "TRS");
 
         maths.addTeacher(teacher1);
         maths.printTeacher();
@@ -20,12 +27,17 @@ public class Main {
         physics.addTeacher(teacher2);
         physics.printTeacher();
 
-        Student student1 = new Student("Ayla Dikmen", "478", "4", chemistry,physics, history);
+        chemistry.addTeacher(teacher3);
+        chemistry.printTeacher();
+
+        Student student1 = new Student("Ayla Dikmen", "478", "4", maths, physics,chemistry);
         student1.addBulkExamNote(45,63,78,70,85,90);
+
         student1.isPass();
 
-        Student student2 = new Student("Eda Ece", "4789", "3",maths,turkish,biology);
-        student2.addBulkExamNote(80,65,74,68,78,85);
+        Student student2 = new Student("Eda Ece", "4789", "3", maths, physics, chemistry);
+        student2.addBulkExamNote(40,25,14,18,38,25);
+
         student2.isPass();
 
     }

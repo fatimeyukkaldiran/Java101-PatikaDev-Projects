@@ -1,11 +1,12 @@
 package StudentInformationSystem;
 public class Student {
-    String name;
-    String studentNu;
-    String classes;
     Course maths;
     Course chemistry;
     Course physics;
+    String name;
+    String studentNu;
+    String classes;
+
     double mathsVerbalEffectAverageRate = 0.40;
     double mathsNoteEffectAverageRate = 0.60;
     double physicsVerbalEffectAverageRate = 0.30;
@@ -20,11 +21,10 @@ public class Student {
         this.studentNu = studentNu;
         this.classes = classes;
         this.maths = maths;
-        this.chemistry = chemistry;
         this.physics = physics;
-
+        this.chemistry = chemistry;
+        this.average = 0.0;
         this.isPass = false;
-        calcAverage();
 
     }
 
@@ -47,17 +47,19 @@ public class Student {
         if (this.maths.note == 0 || this.physics.note == 0 || this.chemistry.note == 0){
             System.out.println("Invalid notes");
         }else
+            printNote();
             this.isPass = isCheckPass();
-        printNote();
-        System.out.println("Average : " + this.average);
-        verbalNoteEffectsAverage();
+
+            System.out.println("Average : " + this.average);
+
         if (this.isPass)
             System.out.println("Classes passed.");
         else
             System.out.println("Remained in the classroom.");
     }
-    public void calcAverage(){
-        this.average = (this.maths.note + this.physics.note + this.chemistry.note)/3;
+    public double calcAverage(){
+        this.average = noteEffectsAverage()/3;
+        return  this.average;
     }
     public void  printNote(){
         System.out.println("--------------------------------------");
@@ -67,17 +69,20 @@ public class Student {
         System.out.println("Chemistry note : " +this.chemistry.note + " and " + "verbal note : " +this.chemistry.verbalNote);
     }
     public  boolean isCheckPass(){
-        calcAverage();
-        return  this.average > 55;
+
+        return  calcAverage() > 55;
     }
 
-    public void verbalNoteEffectsAverage( ){
+    public double noteEffectsAverage( ){
         double mathsGeneralEffectAverage = (this.maths.verbalNote*mathsVerbalEffectAverageRate) + (this.maths.note*mathsNoteEffectAverageRate);
         double physicsGeneralEffectAverage = (this.physics.verbalNote*physicsVerbalEffectAverageRate) + (this.physics.note*physicsNoteEffectAverageRate);
         double chemistryGeneralEffectAverage = (this.chemistry.verbalNote*chemistryVerbalEffectAverageRate) + (this.chemistry.note*chemistryNoteEffectAverageRate);
         System.out.println("Maths General Effect to Average : " +mathsGeneralEffectAverage);
         System.out.println("Physics General Effect to Average :" +physicsGeneralEffectAverage);
         System.out.println("Chemistry General Effect to Average :" +chemistryGeneralEffectAverage);
+
+        double  noteSum = (mathsGeneralEffectAverage + physicsGeneralEffectAverage + chemistryGeneralEffectAverage);
+        return  noteSum;
 
     }
 }
